@@ -1,5 +1,6 @@
 package game;
 
+import elements.Element;
 import elements.MovableElement;
 import elements.Tile;
 import utils.Point2D;
@@ -7,11 +8,11 @@ import utils.PointImagePair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Board implements Serializable {
     private final int size;
     private final Tile[][] board;
-    private ObjectManager objectManager;
 
     /**
      * A constructor for class Board.
@@ -20,7 +21,7 @@ public class Board implements Serializable {
     public Board(int size) {
         this.size = size;
         this.board = new Tile[size][size];
-        this.objectManager = new ObjectManager(size - 1);
+        // this.objectManager = new ObjectManager(size - 1);
 
         this.fillBoard();
         this.fillEdges();
@@ -86,56 +87,6 @@ public class Board implements Serializable {
             this.board[i][0] = new Tile(false);
             this.board[i][this.getSize() - 1] = new Tile( false);
         }
-    }
-
-
-    /**
-     * @return  a mapping between each location contained in the board's objectManager and its String representation.
-     */
-    public ArrayList<PointImagePair> getMovableObjectPointImgPairs() {
-        return this.objectManager.getPointImagePairs();
-    }
-
-    /**
-     * @param position player's current position
-     * @param playerState player's current playerState
-     * @return the new playerState after an object in objectManager interacts with the player
-     */
-    public PlayerState updatePlayerState(Point2D position, PlayerState playerState) {
-        return this.objectManager.modifyPlayerState(position, playerState);
-    }
-
-
-    /**
-     * Call on the board's objectManager to update the status of every object it contains .
-     */
-    public void updateBoard(){
-        this.objectManager.updateObjects();
-    }
-
-    public void deleteObject(Point2D pos) {this.objectManager.removeObject(pos);}
-    public boolean checkOverlap(Point2D point) {
-        return this.objectManager.checkOverlap(point);
-    }
-
-    public void resetObjectsToBaseState() {
-        this.objectManager.resetToBaseState();
-    }
-    //-----Adding Elements to the board----//
-    public void addGoal(Point2D pos) {
-        this.objectManager.addGoal(pos);
-    }
-    public void addRightAlligatorDen(Point2D pos) {
-        this.objectManager.addRightAlligatorDen(pos);
-    }
-    public void addLeftAlligatorDen(Point2D pos) {
-        this.objectManager.addLeftAlligatorDen(pos);
-    }
-    public void addUpAlligatorDen(Point2D pos) {
-        this.objectManager.addUpAlligatorDen(pos);
-    }
-    public void addDownAlligatorDen(Point2D pos) {
-        this.objectManager.addDownAlligatorDen(pos);
     }
 }
 

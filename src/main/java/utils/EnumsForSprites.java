@@ -8,3 +8,4 @@ public enum EnumsForSprites {
     ALLIGATOR_DEN,
     GOAL
 }
+

@@ -34,6 +34,7 @@ public class GraphicsLoader {
         this.strMapping.put(EnumsForSprites.IS_TRAVERSABLE,
                 new Image("file:src/main/assets/tiles/cobble_blood1.png"));
         this.strMapping.put(EnumsForSprites.NOT_TRAVERSABLE,
+
                 new Image("file:src/main/assets/tiles/torch1.png"));
         this.strMapping.put(EnumsForSprites.PLAYER,
                 new Image("file:src/main/assets/player/deep_elf_blademaster.png"));
@@ -43,6 +44,11 @@ public class GraphicsLoader {
                 new Image("file:src/main/assets/tiles/dngn_entrance.png"));
         this.strMapping.put(EnumsForSprites.GOAL,
                 new Image("file:src/main/assets/player/statues/guardian-eyeopen-flame3.png"));
+        this.strMapping.put(EnumsForSprites.CHASER,
+                new Image("file:src/main/assets/player/nonliving/molten_gargoyle.png"));
+        this.strMapping.put(EnumsForSprites.PORTAL, new Image("file:src/main/assets/tiles/dngn_portal.png"));
+        this.strMapping.put(EnumsForSprites.ROCK, new Image("file:src/main/assets/tiles/crystal_floor5.png"));
+
     }
 
     /**

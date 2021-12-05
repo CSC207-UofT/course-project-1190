@@ -76,4 +76,47 @@ public class Point2D implements Serializable {
     public static boolean equals(Point2D p1, Point2D p2) {
         return (p1.getX() == p2.getX()) & (p1.getY() == p2.getY());
     }
+
+    /**
+     * A method to get the horizontal distance between two points.
+     * @param p1 the first point
+     * @param p2 the second point
+     * @return the horizontal distance between the two points
+     */
+    public static int xDistance(Point2D p1, Point2D p2) {
+        return (p1.getX()-p2.getX());
+    }
+
+    /**
+     * A method to get the vertical distance between two points.
+     * @param p1 the first point
+     * @param p2 the second point
+     * @return the vertical distance between the two points
+     */
+    public static int yDistance(Point2D p1, Point2D p2) {
+        return (p1.getY() -p2.getY());
+    }
+
+
+    /**
+     * A method to get the linear distance between two points.
+     * @param p1 the first point
+     * @param p2 the second point
+     * @return the linear distance between the two points
+     */
+    public static double linearDistance(Point2D p1, Point2D p2) {
+        return (Math.sqrt(Math.pow(xDistance(p1, p2), 2) + Math.pow(yDistance(p1, p2), 2)));
+    }
+
+    /**
+     * A method to print out the location of a point to human-readable String.
+     * @return a String that contains the (X, Y) coordinates of a Point2D object
+     */
+    @Override
+    public String toString(){
+        return ("(" + this.getX() + " , " + this.getY()+ ")");
+    }
+
 }
+
+

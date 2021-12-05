@@ -1,11 +1,14 @@
 package game;
 
+import elements.*;
 import utils.EnumsForSprites;
 import utils.Point2D;
 import utils.PointImagePair;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class Game implements Serializable {
@@ -13,6 +16,7 @@ public class Game implements Serializable {
     private boolean isRunning;
     private Board board;
     private Player player;
+    private ObjectManager objectManager;
     private int size;
 
     /**
@@ -22,10 +26,13 @@ public class Game implements Serializable {
      */
     public Game (int size) {
         this.board = new Board(size);
-        this.size = size;
-        this.isRunning = true;
+        this.objectManager = new ObjectManager(size - 1);
         Point2D pos = new Point2D(5, 5);
         this.player = new Player(pos);
+
+        this.size = size;
+        this.isRunning = true;
+
     }
 
 
@@ -50,18 +57,19 @@ public class Game implements Serializable {
     /**
      * A wrapper method that calls on the underlying board to update itself.
      */
-    public void updateBoard() {
-        this.board.updateBoard();
+    public void updateObjects() {
+        PlayerState ps = this.player.getPlayerState();
+        this.updateObjects(ps);
     }
 
     /**
-     * Updates the Player's PlayerState using the board's feedback based on the Player's current location. Also
-     * decreases the Player's temporary invincibility-frame-count by 1.
+     * Updates the Player's PlayerState using the board's feedback based on the Player's current location.
+     * Also decreases the Player's temporary invincibility-frame-count by 1.
      */
     public void updatePlayerState() {
+
         PlayerState currPlayerState = this.player.playerState;
-        Point2D position = this.player.getPos();
-        PlayerState modifiedPlayerState = this.board.updatePlayerState(position, currPlayerState);
+        PlayerState modifiedPlayerState = this.updatePlayerState(currPlayerState);
 
         this.player.setPlayerState(modifiedPlayerState);
         this.player.decrementIframes();
@@ -78,6 +86,42 @@ public class Game implements Serializable {
         this.board.resetObjectsToBaseState();
         this.player.resetPlayerState();
     }
+
+    /**
+     * @return  a mapping between each location contained in the board's objectManager and its String representation.
+     */
+    public ArrayList<PointImagePair> getMovableObjectPointImgPairs() {
+        return this.objectManager.getPointImagePairs();
+    }
+
+    /** Modifies the playerState with whichever modifiers are on the same tile as the player.
+     * @param playerState player's current playerState
+     * @return the new playerState after a modifier interacts with the player
+     */
+    public PlayerState updatePlayerState(PlayerState playerState) {
+        ArrayList<Modifier> list = this.objectManager.modifyPlayerState(playerState);
+        for (Modifier modifier : list){
+            modifier.Modifier(playerState);
+        }
+        return playerState;
+    }
+
+
+    /**
+     * Call on the board's objectManager to update the status of every object it contains .
+     */
+    public void updateObjects(PlayerState ps){
+        this.objectManager.updateObjects(ps);
+    }
+
+
+    /**
+     * @return the objectManager of the board.
+     */
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
+
     /**
      * Getters and Setters for game status.
      */
@@ -97,7 +141,7 @@ public class Game implements Serializable {
     }
 
     public ArrayList<PointImagePair> getBoardMovableObjects() {
-        return this.board.getMovableObjectPointImgPairs();
+        return this.getMovableObjectPointImgPairs();
     }
 
     public EnumsForSprites getPlayerSprite() {

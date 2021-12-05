@@ -5,6 +5,9 @@ import elements.Element;
 import utils.Point2D;
 import utils.PointImagePair;
 import utils.EnumsForSprites;
+
+import java.beans.PropertyChangeEvent;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,7 +37,14 @@ public class ObjectManager implements Serializable {
     public ObjectManager(ArrayList<Element> boardObjects, int bound) {
         this.boardObjects = boardObjects;
         this.bound = bound;
+
     }
+
+
+    public ArrayList<Element> getBoardObjects() {
+        return this.boardObjects;
+    }
+
 
     /**
      * Add new elements to the board, collected and managed by the objectManager.
@@ -45,8 +55,17 @@ public class ObjectManager implements Serializable {
         boardObjects.add(object);
     }
 
-    // Methods to enable calls from gameMaker
-    // TODO: add more or configure with gameMaker
+    // TODO: add for each type of element
+
+
+    /**
+     * A method to place a ChasingElement as a specific location on the board.
+     *
+     * @param pos where the new ChasingElement is placed on the board.
+     */
+    public void addChasingElement(Point2D pos, int max_tick) {
+        this.addObject(new ChasingElement(EnumsForSprites.CHASER, pos, this.bound, max_tick, new Point2D(0, 0)));
+    }
 
     /**
      * A method to place, specifically, an AlligatorDen that shoots alligators only to the right on the board. This
@@ -100,6 +119,43 @@ public class ObjectManager implements Serializable {
         this.addObject(new Goal(EnumsForSprites.GOAL, pos, true));
     }
 
+    /**
+     * A method to place a Portal element on the board. When Player reaches the Portal, the player will be teleported
+     * to specific coordinates
+     * @param pos location where the Portal element is placed on the board
+     */
+    public void addPortal(Point2D pos) {
+        this.addObject(new Portal(EnumsForSprites.PORTAL, pos, pos));
+    }
+
+    /**
+     * A method that checks if there is a Portal element on the board
+     * @return True if there is a Portal element on the board and False is there isn't
+     */
+    public boolean checkPortals() {
+        boolean isPortal = false;
+        for (Element element : boardObjects){
+            if (element instanceof Portal){
+                isPortal = true;
+            }
+        }
+        return isPortal;
+    }
+
+    /**
+     * A method to place a Rock element on the board.  the player will be teleported to this Rock if they use the Portal
+     * @param pos location where the Rock element is placed on the board
+     */
+    public void addRock(Point2D pos) {
+        Rock teleportPoint = new Rock(EnumsForSprites.ROCK, pos);
+        this.addObject(teleportPoint);
+
+        for (Element element : boardObjects){
+            if (element instanceof Portal){
+                ((Portal) element).changeTeleportPoint(teleportPoint.getPos());
+            }
+        }
+    }
 
     /**
      * A method to remove elements from the board, which is managed by the board's objectManager.
@@ -142,9 +198,11 @@ public class ObjectManager implements Serializable {
      * Updates the content of the ObjectManager, removing elements that have gone off the screen and adding elements
      * that have been generated.
      */
-    public void updateObjects() {
+
+    public void updateObjects(PlayerState ps) {
         HashSet<Element> objectsToRemove = new HashSet<>();
         HashSet<Element> objectsToAdd = new HashSet<>();
+        Point2D playerPos = ps.getPos();
 
         for (Element boardObject : boardObjects) {
 
@@ -171,25 +229,42 @@ public class ObjectManager implements Serializable {
         for (Element element : objectsToAdd) {
             this.addObject(element);
         }
+
+
+        // Set ChasingElement's velocity in relation to Player position each tick.
+        for (Element boardObject : boardObjects) {
+            if (boardObject instanceof ChasingElement) {
+                ChasingElement ce = (ChasingElement)boardObject;
+                int directionX = (int) (Math.signum(Point2D.xDistance(playerPos, ce.getPos())) * 1);
+                int directionY = (int) (Math.signum(Point2D.yDistance(playerPos, ce.getPos())) * 1);
+                Point2D newVel = new Point2D(directionX, directionY);
+                ce.setVelocity(newVel);
+            }
+        }
     }
+
 
 
     /**
      * If a Player steps onto the same location as an Element, check to see if the Element can affect the Player's
-     * PlayerState; if so, update PlayerState.
+     * PlayerState; if so, create a list of them to be sent to Game
      *
-     * @param playerPosition the Player's current position
-     * @param playerState    the Player's playerState, currently including points, temporary invincibility after
-     *                       encountering an element, and winning status.
-     * @return
+
+     * @param playerState the Player's playerState, currently including points, temporary invincibility after
+     *                    encountering an element, and winning status.
+     * @return a list of the modifiers on the tile where player is
      */
-    public PlayerState modifyPlayerState(Point2D playerPosition, PlayerState playerState) {
+    public ArrayList<Modifier> modifyPlayerState(PlayerState playerState) {
+        Point2D currPosition = playerState.getPos();
+        ArrayList<Modifier> list = new ArrayList<Modifier>();
+
         for (Element boardObject : boardObjects) {
-            if ((boardObject instanceof Interactable) & Point2D.equals(boardObject.getPos(), playerPosition)) {
-                playerState = ((Interactable) boardObject).changePlayerState(playerState);
+            if ((boardObject instanceof Interactable) & Point2D.equals(boardObject.getPos(), currPosition)) {
+                list.add(((Interactable) boardObject).Modify(playerState));
             }
         }
-        return playerState;
+
+        return list;
     }
 
     public boolean checkOverlap(Point2D point) {
@@ -217,5 +292,4 @@ public class ObjectManager implements Serializable {
             this.removeObject(element);
         }
     }
-
 }

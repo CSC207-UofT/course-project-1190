@@ -97,11 +97,11 @@ public class RenderPane {
             }
 
             // Clears the canvas
-            clearCanvas();
+        clearCanvas();
+        // Updates game state
+        game.updateObjects();
+        game.updatePlayerState();
 
-            // Updates game state
-            game.updateBoard();
-            game.updatePlayerState();
 
             // Draws new game state
             gl.drawBoard(gc, game);

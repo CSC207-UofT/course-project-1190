@@ -1,30 +1,25 @@
 package game;
 
+import utils.Point2D;
+
 import java.io.Serializable;
 
 public class PlayerState implements Serializable {
     int points;
     int iFrames;
     boolean hasWon;
+    Point2D playerPosition;
 
     /**
      * A constructor for the PlayerState class, which takes in an initial points and sets
      * its invincibility frame count to 60 and winning state to false.
      * @param points the PlayerState's current points
      */
-    public PlayerState(int points) {
+    public PlayerState(int points, Point2D playerPos) {
         this.points = points;
         this.iFrames = 60;
         this.hasWon = false;
-    }
-
-    /**
-     * Empty constructor for playerstate, sets points to default (100)
-     */
-    public PlayerState() {
-        this.points = 100;
-        this.iFrames = 60;
-        this.hasWon = false;
+        this.playerPosition = playerPos;
     }
 
     /**
@@ -57,9 +52,9 @@ public class PlayerState implements Serializable {
     /**
      * Getters and (re)Setters for PlayerState's attributes.
      */
-    public void resetIframes() {
-        this.iFrames = 60;
-    }
+    public void setPos(Point2D newPos){this.playerPosition = newPos;}
+    public Point2D getPos(){return this.playerPosition;}
+    public void resetIframes() {this.iFrames = 60;}
     public int getPoints(){
         return points;
     }

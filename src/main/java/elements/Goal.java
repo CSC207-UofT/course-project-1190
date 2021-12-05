@@ -6,6 +6,8 @@ import utils.EnumsForSprites;
 
 public class Goal extends Element implements Interactable {
 
+    private GoalModifier mod;
+
     /**
      * A constructor for the Goal class, inherited from its parent class Element.
      * @param sprite the element's representation
@@ -13,16 +15,16 @@ public class Goal extends Element implements Interactable {
      */
     public Goal (EnumsForSprites sprite, Point2D pos, boolean isPermanent) {
         super(sprite, pos, isPermanent);
+        this.mod = new GoalModifier();
     }
 
     /**
-     * Changes a Player's PlayerState if encountered.
+     * Returns the Goal's modifier, to modify elsewhere
      * @param playerState the Player's current PlayerState
-     * @return the updated PlayerState
+     * @return the Goal's modifier
      */
     @Override
-    public PlayerState changePlayerState (PlayerState playerState) {
-        playerState.setWinningState(true);
-        return playerState;
+    public GoalModifier Modify(PlayerState playerState) {
+        return this.mod;
     }
 }
