@@ -75,17 +75,6 @@ public class Game implements Serializable {
         this.player.decrementIframes();
     }
 
-    public boolean checkOverlap(Point2D point) {
-        if (Point2D.equals(this.player.getPos(), point)) {
-            return false;
-        }
-        else return !board.checkOverlap(point);
-    }
-
-    public void resetGameToBaseState() {
-        this.board.resetObjectsToBaseState();
-        this.player.resetPlayerState();
-    }
 
     /**
      * @return  a mapping between each location contained in the board's objectManager and its String representation.
@@ -155,29 +144,8 @@ public class Game implements Serializable {
     public PlayerState getPlayerState() {return this.player.getPlayerState();}
 
     public boolean checkPlayerWon() {
-        return this.player.checkWon();
+        return this.player.getPlayerState().getWinningState();
     }
 
-    public boolean checkPlayerLose() {return this.player.checkLoss();}
     public int getSize(){return this.size;}
-
-    public void deleteObject(Point2D pos) {
-        this.board.deleteObject(pos);
-    }
-    //-----Adding Elements to the board----//
-    public void addGoal(Point2D pos) {
-        this.board.addGoal(pos);
-    }
-    public void addRightAlligatorDen(Point2D pos) {
-        this.board.addRightAlligatorDen(pos);
-    }
-    public void addLeftAlligatorDen(Point2D pos) {
-        this.board.addLeftAlligatorDen(pos);
-    }
-    public void addUpAlligatorDen(Point2D pos) {
-        this.board.addUpAlligatorDen(pos);
-    }
-    public void addDownAlligatorDen(Point2D pos) {
-        this.board.addDownAlligatorDen(pos);
-    }
 }

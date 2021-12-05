@@ -31,16 +31,15 @@ public class GraphicsLoader {
     public GraphicsLoader() {
 
         this.tileSize = 32;
-        this.strMapping.put(EnumsForSprites.IS_TRAVERSABLE,
+        this.strMapping.put(EnumsForSprites.ISTRASVERSABLE,
                 new Image("file:src/main/assets/tiles/cobble_blood1.png"));
-        this.strMapping.put(EnumsForSprites.NOT_TRAVERSABLE,
-
+        this.strMapping.put(EnumsForSprites.NOTTRASVERSABLE,
                 new Image("file:src/main/assets/tiles/torch1.png"));
         this.strMapping.put(EnumsForSprites.PLAYER,
                 new Image("file:src/main/assets/player/deep_elf_blademaster.png"));
         this.strMapping.put(EnumsForSprites.ALLIGATOR,
                 new Image("file:src/main/assets/player/animals/alligator.png"));
-        this.strMapping.put(EnumsForSprites.ALLIGATOR_DEN,
+        this.strMapping.put(EnumsForSprites.ALLIGATORDEN,
                 new Image("file:src/main/assets/tiles/dngn_entrance.png"));
         this.strMapping.put(EnumsForSprites.GOAL,
                 new Image("file:src/main/assets/player/statues/guardian-eyeopen-flame3.png"));

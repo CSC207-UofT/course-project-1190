@@ -1,11 +1,3 @@
 package utils;
 
-public enum EnumsForSprites {
-    IS_TRAVERSABLE,
-    NOT_TRAVERSABLE,
-    PLAYER,
-    ALLIGATOR,
-    ALLIGATOR_DEN,
-    GOAL
-}
-
+public enum EnumsForSprites {ISTRASVERSABLE, NOTTRASVERSABLE, PLAYER, ALLIGATOR, ALLIGATORDEN, GOAL, CHASER, ROCK, PORTAL}
