@@ -17,8 +17,8 @@ public class Alligator extends MovableElement implements Interactable{
      * @param max_tick number of frame ticks it takes for the next movement to happen
      * @param velocity the movement per tick, represented by a pair of integers on our tile-based game board.
      */
-    public Alligator(EnumsForSprites sprite, Point2D pos, int bound, int max_tick, Point2D velocity, boolean isPermanent) {
-        super(sprite, pos, bound, max_tick, velocity, isPermanent);
+    public Alligator(EnumsForSprites sprite, Point2D pos, int bound, int max_tick, Point2D velocity) {
+        super(sprite, pos, bound, max_tick, velocity);
         this.mod = new AlligatorModifier();
     }
 

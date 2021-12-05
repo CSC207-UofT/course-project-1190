@@ -10,7 +10,6 @@ public class Element implements Serializable {
     // This is the base class for all objects to be seeded on the board.
     private EnumsForSprites sprite;
     private Point2D pos;
-    private boolean isPermanent;
 
 
     /**
@@ -19,10 +18,9 @@ public class Element implements Serializable {
      * image by the GraphicsLoader.
      * @param pos the element's position on the board, represented by a pair of integer coordinates.
      */
-    public Element(EnumsForSprites sprite, Point2D pos, boolean isPermanent){
+    public Element(EnumsForSprites sprite, Point2D pos){
         this.sprite = sprite;
         this.pos = pos;
-        this.isPermanent = isPermanent;
     }
 
     /**
@@ -45,9 +43,5 @@ public class Element implements Serializable {
      */
     public void setPos(Point2D newPos) {
         this.pos = newPos;
-    }
-
-    public boolean checkIsPermanent() {
-        return this.isPermanent;
     }
 }
