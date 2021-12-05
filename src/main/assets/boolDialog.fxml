@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane id="rootPane" maxHeight="154.0" maxWidth="300.0" minHeight="79.0" minWidth="300.0" prefHeight="93.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="10.0" prefWidth="306.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="140.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label id="prompt" alignment="CENTER" prefHeight="37.0" prefWidth="306.0" text="User Dialog Prompt" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Consolas Bold" size="14.0" />
+         </font>
+      </Label>
+      <AnchorPane prefHeight="200.0" prefWidth="300.0" GridPane.rowIndex="1">
+         <children>
+            <Button id="yesButton" layoutX="59.0" layoutY="13.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="57.0" text="YES">
+               <font>
+                  <Font name="Consolas Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button id="noButton" layoutX="181.0" layoutY="13.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="57.0" text="NO">
+               <font>
+                  <Font name="Consolas Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

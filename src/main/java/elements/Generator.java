@@ -3,7 +3,7 @@ package elements;
 import utils.EnumsForSprites;
 import utils.Point2D;
 
-public abstract class Generator extends Element {
+public abstract class Generator extends Element implements Resettable {
     Point2D direction;
     int max_tick;
     int counter;
@@ -17,8 +17,9 @@ public abstract class Generator extends Element {
      * @param max_tick the number of frame ticks before the next movement
      * @param bound the movement boundary of the generated objects
      */
-    public Generator(EnumsForSprites sprite, Point2D pos, Point2D direction, int max_tick, int bound) {
-        super(sprite, pos);
+    public Generator(EnumsForSprites sprite, Point2D pos, Point2D direction, int max_tick, int bound,
+                     boolean isPermanent) {
+        super(sprite, pos, isPermanent);
         this.direction = direction;
         this.max_tick = max_tick;
         this.counter = 0;
@@ -46,5 +47,9 @@ public abstract class Generator extends Element {
             return genElement;
         }
     }
-}
+
+    @Override
+    public void reset() {
+        this.counter = 0;
+    }}
 

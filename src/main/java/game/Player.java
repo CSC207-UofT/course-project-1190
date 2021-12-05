@@ -11,7 +11,7 @@ import java.beans.PropertyChangeListener;
 public class Player implements Serializable {
     public PlayerState playerState;
     private final EnumsForSprites sprite;
-    private final PropertyChangeSupport observable;
+    private Point2D startPos;
 
     /**
      * A constructor for the Player class, which sets its position on the board, its PlayerState with an initial 100
@@ -19,9 +19,9 @@ public class Player implements Serializable {
      * @param pos the initial position of the Player
      */
     public Player(Point2D pos){
+        this.startPos = pos;
         this.playerState = new PlayerState(100, pos);
         this.sprite =  EnumsForSprites.PLAYER;
-        this.observable = new PropertyChangeSupport(this);
     }
 
 
@@ -38,7 +38,6 @@ public class Player implements Serializable {
      * @param newPos the new position, represented by a Point2D object composed of 2 integer coordinates
      */
     public void setPos(Point2D newPos) {
-        // observable.firePropertyChange("playerPos", oldPos, newPos);
         this.playerState.setPos(newPos); 
     }
 
@@ -73,4 +72,17 @@ public class Player implements Serializable {
     public void decrementIframes() {
         this.playerState.decrementIframes();
     }
+
+    public void resetPlayerState() {
+        this.playerState = new PlayerState(100);
+        this.pos = startPos;
+    }
+
+    public boolean checkWon() {
+        return this.playerState.getWinningState();
+    }
+    public boolean checkLoss() {
+        return this.playerState.getPoints() <= 0;
+    }
+
 }

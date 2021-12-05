@@ -9,7 +9,7 @@ public class AlligatorTest {
         @Test(timeout = 500)
         public void TestAlligatorMovement() {
             Alligator alligator = new Alligator(EnumsForSprites.ALLIGATOR, new Point2D(6, 5),
-                    20, 60, new Point2D(1, 0));
+                    20, 60, new Point2D(1, 0), false);
 
             for (int i = 0; i <= 60; i++) {
                 alligator.processTick();
@@ -19,7 +19,7 @@ public class AlligatorTest {
         @Test(timeout = 500)
         public void TestAlligatorNoMove() {
             Alligator alligator = new Alligator(EnumsForSprites.ALLIGATOR, new Point2D(6, 5),
-                    20, 60, new Point2D(1, 0));
+                    20, 60, new Point2D(1, 0), false);
 
             for (int i = 0; i <= 59; i++) {
                 alligator.processTick();
@@ -29,7 +29,7 @@ public class AlligatorTest {
         @Test(timeout = 500)
         public void TestAlligatorInteractionInvincible() {
             Alligator alligator = new Alligator(EnumsForSprites.ALLIGATOR, new Point2D(6, 5),
-                    20, 60, new Point2D(1, 0));
+                    20, 60, new Point2D(1, 0), false);
 
             PlayerState playerState = new PlayerState(100);
 
@@ -39,7 +39,7 @@ public class AlligatorTest {
         @Test(timeout = 500)
         public void TestAlligatorInteractionVulnerable() {
             Alligator alligator = new Alligator(EnumsForSprites.ALLIGATOR, new Point2D(6, 5),
-                    20, 60, new Point2D(1, 0));
+                    20, 60, new Point2D(1, 0), false);
 
             PlayerState playerState = new PlayerState(100);
 
