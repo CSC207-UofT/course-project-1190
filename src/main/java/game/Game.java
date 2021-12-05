@@ -79,11 +79,11 @@ public class Game implements Serializable {
         if (Point2D.equals(this.player.getPos(), point)) {
             return false;
         }
-        else return !board.checkOverlap(point);
+        else return !objectManager.checkOverlap(point);
     }
 
     public void resetGameToBaseState() {
-        this.board.resetObjectsToBaseState();
+        this.objectManager.resetObjectsToBaseState();
         this.player.resetPlayerState();
     }
 
@@ -162,22 +162,22 @@ public class Game implements Serializable {
     public int getSize(){return this.size;}
 
     public void deleteObject(Point2D pos) {
-        this.board.deleteObject(pos);
+        this.objectManager.removeObject(pos);
     }
     //-----Adding Elements to the board----//
     public void addGoal(Point2D pos) {
-        this.board.addGoal(pos);
+        this.objectManager.addGoal(pos);
     }
     public void addRightAlligatorDen(Point2D pos) {
-        this.board.addRightAlligatorDen(pos);
+        this.objectManager.addRightAlligatorDen(pos);
     }
     public void addLeftAlligatorDen(Point2D pos) {
-        this.board.addLeftAlligatorDen(pos);
+        this.objectManager.addLeftAlligatorDen(pos);
     }
     public void addUpAlligatorDen(Point2D pos) {
-        this.board.addUpAlligatorDen(pos);
+        this.objectManager.addUpAlligatorDen(pos);
     }
     public void addDownAlligatorDen(Point2D pos) {
-        this.board.addDownAlligatorDen(pos);
+        this.objectManager.addDownAlligatorDen(pos);
     }
 }

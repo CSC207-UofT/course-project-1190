@@ -74,8 +74,7 @@ public class Player implements Serializable {
     }
 
     public void resetPlayerState() {
-        this.playerState = new PlayerState(100);
-        this.pos = startPos;
+        this.playerState = new PlayerState(100, this.startPos);
     }
 
     public boolean checkWon() {

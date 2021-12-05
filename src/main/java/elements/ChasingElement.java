@@ -17,9 +17,11 @@ public class ChasingElement extends MovableElement implements Interactable{
      * @param bound    the element's movement boundary
      * @param max_tick the number of frame ticks before the next movement
      * @param velocity the movement per tick, represented by a pair of integers on our tile-based game board.
+     * @param isPermanent Whether the object should stay on the board upon reset
      */
-    public ChasingElement(EnumsForSprites sprite, Point2D pos, int bound, int max_tick, Point2D velocity) {
-        super(sprite, pos, bound, max_tick, velocity);
+    public ChasingElement(EnumsForSprites sprite, Point2D pos, int bound, int max_tick, Point2D velocity,
+                          boolean isPermanent) {
+        super(sprite, pos, bound, max_tick, velocity, isPermanent);
         this.mod = new ChasingElementModifier();
     }
 

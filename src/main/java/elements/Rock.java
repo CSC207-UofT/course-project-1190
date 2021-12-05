@@ -9,7 +9,7 @@ public class Rock extends Element{
      * @param sprite the element's representation
      * @param pos the element's initial position
      */
-    public Rock(EnumsForSprites sprite, Point2D pos) {
-        super(sprite, pos);
+    public Rock(EnumsForSprites sprite, Point2D pos, boolean isPermanent) {
+        super(sprite, pos, isPermanent);
     }
 }

@@ -12,8 +12,8 @@ public class Portal extends Element implements Interactable{
      * @param pos the element's initial position
      * @param teleportPoint The portal's teleporation coordinates
      */
-    public Portal(EnumsForSprites sprite, Point2D pos, Point2D teleportPoint) {
-        super(sprite, pos);
+    public Portal(EnumsForSprites sprite, Point2D pos, Point2D teleportPoint, boolean isPermanent) {
+        super(sprite, pos, isPermanent);
         this.mod = new PortalModifier(teleportPoint);
     }
 

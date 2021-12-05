@@ -64,7 +64,8 @@ public class ObjectManager implements Serializable {
      * @param pos where the new ChasingElement is placed on the board.
      */
     public void addChasingElement(Point2D pos, int max_tick) {
-        this.addObject(new ChasingElement(EnumsForSprites.CHASER, pos, this.bound, max_tick, new Point2D(0, 0)));
+        this.addObject(new ChasingElement(EnumsForSprites.CHASER, pos, this.bound, max_tick, new Point2D(0, 0),
+                true));
     }
 
     /**
@@ -125,7 +126,7 @@ public class ObjectManager implements Serializable {
      * @param pos location where the Portal element is placed on the board
      */
     public void addPortal(Point2D pos) {
-        this.addObject(new Portal(EnumsForSprites.PORTAL, pos, pos));
+        this.addObject(new Portal(EnumsForSprites.PORTAL, pos, pos, true));
     }
 
     /**
@@ -147,7 +148,7 @@ public class ObjectManager implements Serializable {
      * @param pos location where the Rock element is placed on the board
      */
     public void addRock(Point2D pos) {
-        Rock teleportPoint = new Rock(EnumsForSprites.ROCK, pos);
+        Rock teleportPoint = new Rock(EnumsForSprites.ROCK, pos, true);
         this.addObject(teleportPoint);
 
         for (Element element : boardObjects){
@@ -276,7 +277,7 @@ public class ObjectManager implements Serializable {
         return false;
 
     }
-    public void resetToBaseState() {
+    public void resetObjectsToBaseState() {
         HashSet<Element> objectsToRemove = new HashSet<>();
 
         for (Element element: this.boardObjects) {
