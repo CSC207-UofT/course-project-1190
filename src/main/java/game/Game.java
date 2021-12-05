@@ -87,6 +87,7 @@ public class Game implements Serializable {
         this.player.resetPlayerState();
     }
 
+
     /**
      * @return  a mapping between each location contained in the board's objectManager and its String representation.
      */
@@ -155,10 +156,9 @@ public class Game implements Serializable {
     public PlayerState getPlayerState() {return this.player.getPlayerState();}
 
     public boolean checkPlayerWon() {
-        return this.player.checkWon();
+        return this.player.getPlayerState().getWinningState();
     }
 
-    public boolean checkPlayerLose() {return this.player.checkLoss();}
     public int getSize(){return this.size;}
 
     public void deleteObject(Point2D pos) {
@@ -180,4 +180,5 @@ public class Game implements Serializable {
     public void addDownAlligatorDen(Point2D pos) {
         this.objectManager.addDownAlligatorDen(pos);
     }
+
 }

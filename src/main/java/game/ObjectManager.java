@@ -76,8 +76,7 @@ public class ObjectManager implements Serializable {
      * @param pos where the new AlligatorDen is placed on the board.
      */
     public void addRightAlligatorDen(Point2D pos) {
-        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATOR_DEN, pos, new Point2D(1, 0), 120, bound,
-                true));
+        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATORDEN, pos, new Point2D(1, 0), 120, bound));
     }
 
 
@@ -87,8 +86,7 @@ public class ObjectManager implements Serializable {
      * @param pos where the new AlligatorDen is placed on the board
      */
     public void addLeftAlligatorDen(Point2D pos) {
-        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATOR_DEN, pos, new Point2D(-1, 0), 120, bound,
-                true));
+        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATORDEN, pos, new Point2D(-1, 0), 120, bound));
     }
 
     /**
@@ -97,8 +95,7 @@ public class ObjectManager implements Serializable {
      * @param pos where the new AlligatorDen is placed on the board
      */
     public void addUpAlligatorDen(Point2D pos) {
-        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATOR_DEN, pos, new Point2D(0, -1), 120, bound,
-                true));
+        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATORDEN, pos, new Point2D(0, -1), 120, bound));
     }
 
     /**
@@ -107,8 +104,7 @@ public class ObjectManager implements Serializable {
      * @param pos where the new AlligatorDen is placed on the board
      */
     public void addDownAlligatorDen(Point2D pos) {
-        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATOR_DEN, pos, new Point2D(0, 1), 120, bound,
-                true));
+        this.addObject(new AlligatorDen(EnumsForSprites.ALLIGATORDEN, pos, new Point2D(0, 1), 120, bound));
     }
 
     /**
@@ -117,7 +113,7 @@ public class ObjectManager implements Serializable {
      * @param pos location where the Goal element is placed on the board
      */
     public void addGoal(Point2D pos) {
-        this.addObject(new Goal(EnumsForSprites.GOAL, pos, true));
+        this.addObject(new Goal(EnumsForSprites.GOAL, pos));
     }
 
     /**
@@ -163,23 +159,10 @@ public class ObjectManager implements Serializable {
      *
      * @param object the element to be deleted
      */
-    public void removeObject(Element object) {
+    public void removeObject(Element object){
         boardObjects.remove(object);
     }
 
-    public void removeObject(Point2D pos) {
-        HashSet<Element> objectsToRemove = new HashSet<>();
-
-        for (Element boardObject : boardObjects) {
-            if (Point2D.equals(boardObject.getPos(), pos)) {
-                objectsToRemove.add(boardObject);
-            }
-        }
-            // Remove objects that are at the pos
-        for (Element element : objectsToRemove) {
-            this.removeObject(element);
-        }
-    }
 
     /**
      * A getter method to collect and access a mapping between the location and the string representation of all objects
@@ -199,7 +182,6 @@ public class ObjectManager implements Serializable {
      * Updates the content of the ObjectManager, removing elements that have gone off the screen and adding elements
      * that have been generated.
      */
-
     public void updateObjects(PlayerState ps) {
         HashSet<Element> objectsToRemove = new HashSet<>();
         HashSet<Element> objectsToAdd = new HashSet<>();
@@ -250,10 +232,10 @@ public class ObjectManager implements Serializable {
      * If a Player steps onto the same location as an Element, check to see if the Element can affect the Player's
      * PlayerState; if so, create a list of them to be sent to Game
      *
-
      * @param playerState the Player's playerState, currently including points, temporary invincibility after
      *                    encountering an element, and winning status.
      * @return a list of the modifiers on the tile where player is
+
      */
     public ArrayList<Modifier> modifyPlayerState(PlayerState playerState) {
         Point2D currPosition = playerState.getPos();
@@ -279,18 +261,4 @@ public class ObjectManager implements Serializable {
     }
     public void resetObjectsToBaseState() {
         HashSet<Element> objectsToRemove = new HashSet<>();
-
-        for (Element element: this.boardObjects) {
-           if (element instanceof Resettable && element.checkIsPermanent()) {
-               ((Resettable) element).reset();
-           }
-           else {
-               if (!element.checkIsPermanent()) {objectsToRemove.add(element);}
-           }
-        }
-
-        for (Element element: objectsToRemove) {
-            this.removeObject(element);
-        }
-    }
 }
